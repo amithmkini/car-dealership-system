@@ -1,0 +1,261 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+{% block title %}DriveZone{% endblock %}
+{% block css %}
+    <link href="{% static 'css/creative.min.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block menu %}
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#newArrival">New Arrivals</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+        </li>
+    </ul>
+{% endblock %}
+{% block body %}
+    <header class="masthead text-center text-white d-flex">
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h1 class="text-uppercase">
+                        <strong>Find your next drive here!</strong>
+                    </h1>
+                    <hr>
+                </div>
+                <div class="col-lg-8 mx-auto">
+                    <p class="text-faded mb-5">We sell cars. That's it.</p>
+                    <a class="btn btn-primary btn-xl js-scroll-trigger" href="#newArrival">New arrivals</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-primary" id="newArrival">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mx-auto text-center">
+                    <div id="demo" class="carousel slide" data-ride="carousel">
+                        <ul class="carousel-indicators">
+                            <li data-target="#demo" data-slide-to="0" class="active"></li>
+                            <li data-target="#demo" data-slide-to="1"></li>
+                            <li data-target="#demo" data-slide-to="2"></li>
+                        </ul>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{% static 'images/1.jpg' %}" alt="Los Angeles" width="1100" height="500">
+                                <div class="carousel-caption">
+                                    <h3>Los Angeles</h3>
+                                    <p>We had such a great time in LA!</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/1.jpg' %}" alt="Chicago" width="1100" height="500">
+                                <div class="carousel-caption">
+                                    <h3>Chicago</h3>
+                                    <p>Thank you, Chicago!</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/1.jpg' %}" alt="New York" width="1100" height="500">
+                                <div class="carousel-caption">
+                                    <h3>New York</h3>
+                                    <p>We love the Big Apple!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#demo" data-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">At Your Service</h2>
+                    <hr class="my-4">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box mt-5 mx-auto">
+                        <i class="fa fa-4x fa-balance-scale text-primary mb-3 sr-icons"></i>
+                        <h3 class="mb-3">Compare cars</h3>
+                        <p class="text-muted mb-0">Our website will allow you to compare between cars and let you decide the best car for you.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box mt-5 mx-auto">
+                        <i class="fa fa-4x fa-clock-o text-primary mb-3 sr-icons"></i>
+                        <h3 class="mb-3">On time delivery</h3>
+                        <p class="text-muted mb-0">Once you order your dream car, we deliver it on the scheduled date. No compromises!</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box mt-5 mx-auto">
+                        <i class="fa fa-4x fa-newspaper-o text-primary mb-3 sr-icons"></i>
+                        <h3 class="mb-3">Always updated</h3>
+                        <p class="text-muted mb-0">We update our stocks and catalogue as new arrivals come in.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box mt-5 mx-auto">
+                        <i class="fa fa-4x fa-life-ring text-primary mb-3 sr-icons"></i>
+                        <h3 class="mb-3">Support</h3>
+                        <p class="text-muted mb-0">We provide support for your car, even after your car is delivered to you!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="p-0" id="portfolio">
+        <div class="container-fluid p-0">
+            <div class="row no-gutters popup-gallery">
+                <div class="col-lg-4 col-sm-6">
+                    <a class="portfolio-box" href="{% static 'images/1.jpg' %}">
+                        <img class="img-fluid" src="{% static 'images/1.jpg' %}" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    Category
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a class="portfolio-box" href="{% static 'images/2.jpg' %}">
+                        <img class="img-fluid" src="{% static 'images/2.jpg' %}" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    Category
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a class="portfolio-box" href="{% static 'images/3.jpg' %}">
+                        <img class="img-fluid" src="{% static 'images/3.jpg' %}" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    Category
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a class="portfolio-box" href="{% static 'images/4.jpg' %}">
+                        <img class="img-fluid" src="{% static 'images/4.jpg' %}" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    Category
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a class="portfolio-box" href="{% static 'images/5.jpg' %}">
+                        <img class="img-fluid" src="{% static 'images/5.jpg' %}" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    Category
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a class="portfolio-box" href="{% static 'images/6.jpg' %}">
+                        <img class="img-fluid" src="{% static 'images/6.jpg' %}" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    Category
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-dark text-white">
+        <div class="container text-center">
+            <h2 class="mb-4">Free Download at Start Bootstrap!</h2>
+            <a class="btn btn-light btn-xl sr-button" href="http://startbootstrap.com/template-overviews/creative/">Download
+                Now!</a>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading">Let's Get In Touch!</h2>
+                    <hr class="my-4">
+                    <p class="mb-5">Ready to start your next project with us? That's great! Give us a call or send us an
+                        email and we will get back to you as soon as possible!</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 ml-auto text-center">
+                    <i class="fa fa-phone fa-3x mb-3 sr-contact"></i>
+                    <p>123-456-6789</p>
+                </div>
+                <div class="col-lg-4 mr-auto text-center">
+                    <i class="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
+                    <p>
+                        <a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'js/creative.js' %}"></script>
+{% endblock %}
