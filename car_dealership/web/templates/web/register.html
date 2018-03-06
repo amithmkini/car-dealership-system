@@ -1,0 +1,32 @@
+{% extends 'web/base_alt.html' %}
+{% load bootstrap4 %}
+{% block title %}Register{% endblock %}
+{% block registeractive %}active{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <div class="card" style="margin-top: 1em">
+                <div class="card-body">
+                    <h3>Register</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form role="form" action="{% url 'web:register'%}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% bootstrap_form uform %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Register</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    Already have an account? <a href="{% url 'web:login' %}">Click here</a> to login!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
