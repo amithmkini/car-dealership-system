@@ -1216,7 +1216,7 @@ section.categories .item span {
 }
 
 .product .image img {
-    max-width: 170px
+    /*max-width: 170px*/
 }
 
 .product .image:hover .hover-overlay {
