@@ -61,8 +61,6 @@ def cars_page(request, pg=1):
     end = start + 9
 
     car_list = Car.objects.all()[start:end]
-    print(car_list)
-
     context = {
         'cars': car_list
     }
