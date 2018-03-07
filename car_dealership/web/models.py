@@ -18,6 +18,7 @@ class Car(models.Model):
     tank_capacity = models.IntegerField(null=True)
     engine_displacement = models.IntegerField(null=True)
     added_by = models.ForeignKey(User, on_delete=None, null=True)
+    description = models.TextField()
 
     def __str__(self):
         return self.brand + " " + self.name
@@ -26,7 +27,7 @@ class Car(models.Model):
 class TestDrive(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
-    time = models.DateTimeField()
+    time = models.DateField()
     approved = models.BooleanField(default=False)
 
     def __str__(self):

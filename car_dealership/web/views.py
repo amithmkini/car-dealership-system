@@ -1,10 +1,12 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.db.models import Q
 
-from .forms import UserForm
+from datetime import datetime
+
+from .forms import UserForm, TestDriveForm
 from .models import Car, TestDrive, Order
 
 
@@ -29,6 +31,11 @@ def login_user(request):
         else:
             return render(request, 'web/login.html', {'error_message': 'Invalid login'})
     return render(request, 'web/login.html')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('web:index')
 
 
 def register(request):
@@ -73,11 +80,11 @@ def car_search(request):
         if request.GET.get('search'):
             search = request.GET.get('search')
         else:
-            search = 0
+            search = ''
         if request.GET.get('start'):
             start = int(request.GET.get('start'))
         else:
-            start = ''
+            start = 0
         if request.GET.get('end'):
             end = int(request.GET.get('end'))
         else:
@@ -140,3 +147,45 @@ def cars(request):
 
     data = serializers.serialize('json', objs)
     return HttpResponse(data)
+
+
+def car_details(request, cid):
+    car = Car.objects.get(pk=cid)
+    form = TestDriveForm(initial={'car': car})
+    context = {
+        'car': car,
+        'form': form
+    }
+    return render(request, 'web/car_details.html', context)
+
+
+def order_car(request, cid):
+    user = request.user
+    car = Car.objects.get(pk=cid)
+
+    if request.method == 'POST':
+        address = request.POST['address']
+        new = Order(
+            user=user,
+            car=car,
+            amount=car.price,
+            address=address
+        ).save()
+
+    return redirect('web:details', cid)
+
+
+def testdrive(request, cid):
+    user = request.user
+    car = Car.objects.get(pk=cid)
+
+    if request.method == 'POST':
+        date = request.POST['date']
+        new_date = datetime.strptime(date, '%d/%m/%Y').strftime('%Y-%m-%d')
+        test = TestDrive(
+            user=user,
+            car=car,
+            time=new_date
+        ).save()
+
+    return redirect('web:details', cid)

@@ -8,11 +8,29 @@
 {% endblock %}
 
 {% block menu %}
-
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control ml-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <form class="form-inline my-2 my-lg-0" id="searchbar">
+                    <input class="form-control ml-sm-2" type="text" name="search" placeholder="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="submit">Search</button>
+                </form>
+            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#">Welcome, {{ user.last_name }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="{% url 'web:logout' %}">Logout</a>
+                </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'web:login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'web:register' %}">Register</a>
+            </li>
+        {% endif %}
+    </ul>
 {% endblock %}
 
 {% block body %}
@@ -112,6 +130,7 @@
     <script>
         var make = '';
         var filter = false;
+        var q = false;
         var start = 0;
         var end = start + 9;
         var snapSlider = document.getElementById('slider-snap');
@@ -157,6 +176,16 @@
                     getparams(start, end);
                 }
             }
+            else if (q === true) {
+                if (start === 0) {
+                    // There's no previous then..
+                }
+                else {
+                    start = start - 9;
+                    end = start + 9;
+                    searchb(start, end);
+                }
+            }
             else {
                 if (start === 0) {
                     //There's no previous here
@@ -175,6 +204,11 @@
                 start = start + 9;
                 end = start + 9;
                 getparams(start, end);
+            }
+            else if (q === true) {
+                start = start + 9;
+                end = start + 9;
+                searchb(start, end);
             }
             else {
                 start = start + 9;
@@ -260,13 +294,16 @@
             }
         }
 
-        //function search(term) {
-        //    var xhttp = XMLReq(fillGrid);
-        //    var local = window.location.origin;
-        //    xhttp.open("GET", local + '/api/sch_oppo/?q=' + term, true);
-        //    $('table tbody tr').remove();
-        //    xhttp.send();
-        //}
+        function searchb(start, end) {
+            q = true;
+            filter = false;
+            var term = $('#searchbar').serialize();
+            var xhttp = XMLReq(fillGrid);
+            var local = window.location.origin;
+            var extra = "&start=" + start + "&end=" + end;
+            xhttp.open("GET", local + '/car_s' + '?' + term + extra, true);
+            xhttp.send();
+        }
 
 
         function clear () {
@@ -287,9 +324,9 @@
         }
 
 
-
         function getparams(start, end) {
             filter = true;
+            q = false;
             var r = $('#filter').serialize();
             var lower = $('#slider-snap-value-lower').text();
             var upper = $('#slider-snap-value-upper').text();
@@ -297,6 +334,12 @@
             var final = r + extra;
             getGridwparams(final, start, end);
         }
+
+
+        $("#searchbar").submit(function(e){
+            searchb(start, end);
+            return false;
+        });
 
     </script>
 {% endblock %}
