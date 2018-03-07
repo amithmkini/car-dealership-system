@@ -160,6 +160,8 @@ def car_details(request, cid):
 
 
 def order_car(request, cid):
+    if not request.user.is_authenticated:
+        return redirect('web:login')
     user = request.user
     car = Car.objects.get(pk=cid)
 
@@ -176,6 +178,8 @@ def order_car(request, cid):
 
 
 def testdrive(request, cid):
+    if not request.user.is_authenticated:
+        return redirect('web:login')
     user = request.user
     car = Car.objects.get(pk=cid)
 
@@ -189,3 +193,19 @@ def testdrive(request, cid):
         ).save()
 
     return redirect('web:details', cid)
+
+
+def dashboard(request):
+    if not request.user.is_authenticated:
+        return redirect('web:login')
+
+    user = request.user
+    test = TestDrive.objects.filter(user=user)
+    orders = Order.objects.filter(user=user)
+
+    context = {
+        'tests': test,
+        'orders': orders
+    }
+
+    return render(request, 'web/dashboard.html', context)

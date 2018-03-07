@@ -1,6 +1,5 @@
 {% extends 'web/base_alt.html' %}
 {% load staticfiles %}
-{% load bootstrap4 %}
 {% block title %}{{ car.brand }} {{ car.name }}{% endblock %}
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/css_style.default.css' %}" id="theme-stylesheet">
@@ -14,7 +13,7 @@
         </li>
         {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="#">Welcome, {{ user.last_name }}</a>
+                <a class="nav-link js-scroll-trigger" href="{% url 'web:dashboard' %}">Welcome, {{ user.last_name }}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link js-scroll-t rigger" href="{% url 'web:logout' %}">Logout</a>

@@ -17,4 +17,5 @@ urlpatterns = [
     path('car/<int:cid>', views.car_details, name='details'),
     path('testdrive/<int:cid>', views.testdrive, name="testdrive"),
     path('ordercar/<int:cid>', views.order_car, name='order'),
+    path('dashboard/', views.dashboard, name='dashboard'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

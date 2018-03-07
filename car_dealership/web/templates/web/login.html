@@ -1,10 +1,13 @@
 {% extends 'web/base_alt.html' %}
 {% load staticfiles %}
 {% block title %}Login{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/css_style.default.css' %}" id="theme-stylesheet">
+{% endblock %}
 {% block menu %}
     <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-            <a class="nav-link js-scroll-trigger" href="{% url 'web:login' %}">Login</a>
+            <a class="nav-link js-scroll-trigger active" href="{% url 'web:login' %}">Login</a>
         </li>
         <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="{% url 'web:register' %}">Register</a>

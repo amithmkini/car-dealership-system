@@ -1,0 +1,93 @@
+{% extends 'web/base_alt.html' %}
+{% load staticfiles %}
+{% block title %}{{ car.brand }} {{ car.name }}{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/css_style.default.css' %}" id="theme-stylesheet">
+{% endblock %}
+
+{% block menu %}
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{% url 'web:cars' %}">Cars</a>
+        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#">Welcome, {{ user.last_name }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-t rigger" href="{% url 'web:logout' %}">Logout</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'web:login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'web:register' %}">Register</a>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <!-- Page Heading -->
+        <h3 class="my-4">Test drives
+{#            <small>All test drives</small>#}
+        </h3>
+
+        <div class="row">
+            {% comment %}Loop comes here{% endcomment %}
+            {% if tests %}
+                {% for test in tests %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <a href="{% url 'web:details' test.car.id %}"><img class="card-img-top" src="{{ test.car.picture.url }}" alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="#">{{ test.car.brand }} {{ test.car.name }}</a>
+                                </h4>
+                                <p class="card-text">
+                                    Date of test drive: {{ test.time }}<br>
+                                    Approved: {% if test.approved %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-times"></i>{% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <!-- /.row -->
+    </div>
+    <div class="container">
+
+        <!-- Page Heading -->
+        <h3 class="my-4">Orders
+{#            <small>Secondary Text</small>#}
+        </h3>
+
+        <div class="row">
+            {% if orders %}
+                {% for order in orders %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <a href="{% url 'web:details' order.car.id %}"><img class="card-img-top" src="{{ order.car.picture.url }}" alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="#">{{ order.car.brand }} {{ order.car.name }}</a>
+                                </h4>
+                                <p class="card-text">
+                                    Amount: &#8377; {{ order.amount }}<br>
+                                    Date of order: {{ order.order_time }}<br>
+                                    Address: {{ order.address }}<br>
+                                    Delivered: {% if order.is_delivered %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-times"></i>{% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <!-- /.row -->
+    </div>
+{% endblock %}
