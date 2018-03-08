@@ -17,7 +17,7 @@ def index(request):
 
 def login_user(request):
     if request.user.is_authenticated:
-        return redirect('web:cars')
+        return redirect('web:dashboard')
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -25,7 +25,7 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect('web:cars')
+                return redirect('web:dashboard')
             else:
                 return render(request, 'web/login.html', {'error_message': 'Your account has not been activated!'})
         else:
@@ -52,7 +52,7 @@ def register(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect('web:cars')
+                return redirect('web:dashboard')
 
     context = {
         "uform": uform,
