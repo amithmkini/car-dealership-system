@@ -1,0 +1,5 @@
+Django==2.0.2
+django-admin-view-permission==1.5
+django-bootstrap4==0.0.6
+pytz==2018.3
+selenium==3.10.0

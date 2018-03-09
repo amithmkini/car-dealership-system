@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.db.models import Q
 
@@ -166,15 +166,20 @@ def order_car(request, cid):
     car = Car.objects.get(pk=cid)
 
     if request.method == 'POST':
-        address = request.POST['address']
-        new = Order(
-            user=user,
-            car=car,
-            amount=car.price,
-            address=address
-        ).save()
+        try:
+            address = request.POST['address']
+            new = Order(
+                user=user,
+                car=car,
+                amount=car.price,
+                address=address
+            ).save()
 
-    return redirect('web:details', cid)
+            return HttpResponse("Your order has been placed!")
+        except Exception as e:
+            return HttpResponse("Uh Oh! Something's wrong! Report to the developer with the following error" +
+                                e.__str__())
+    return HttpResponseForbidden()
 
 
 def testdrive(request, cid):
@@ -184,15 +189,20 @@ def testdrive(request, cid):
     car = Car.objects.get(pk=cid)
 
     if request.method == 'POST':
-        date = request.POST['date']
-        new_date = datetime.strptime(date, '%d/%m/%Y').strftime('%Y-%m-%d')
-        test = TestDrive(
-            user=user,
-            car=car,
-            time=new_date
-        ).save()
+        try:
+            date = request.POST['date']
+            new_date = datetime.strptime(date, '%d/%m/%Y').strftime('%Y-%m-%d')
+            test = TestDrive(
+                user=user,
+                car=car,
+                time=new_date
+            ).save()
 
-    return redirect('web:details', cid)
+            return HttpResponse("Your testdrive has been booked!")
+        except Exception as e:
+            return HttpResponse("Uh Oh! Something's wrong! Report to the developer with the following error" +
+                                e.__str__())
+    return HttpResponseForbidden()
 
 
 def dashboard(request):
