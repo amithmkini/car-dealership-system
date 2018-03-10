@@ -9,7 +9,8 @@ a {
 }
 
 body {
-    overflow-x: hidden
+    overflow-x: hidden;
+    background-image: url("../images/dust_scratches.png");
 }
 
 section {

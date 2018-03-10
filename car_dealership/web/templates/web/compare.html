@@ -1,0 +1,102 @@
+{% extends 'web/base_alt.html' %}
+{% load staticfiles %}
+{% load bootstrap4 %}
+{% block title %}Compare{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/css_style.default.css' %}" id="theme-stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-select.min.css' %}" id="theme-stylesheet">
+    <script src="{% static 'js/nouislider.min.js' %}"></script>
+{% endblock %}
+
+{% block menu %}
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <form class="form-inline my-2 my-lg-0" id="searchbar">
+                <input class="form-control ml-sm-2" type="text" name="search" placeholder="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="submit">Search</button>
+            </form>
+        </li>
+        &nbsp;&nbsp;
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{% url 'web:cars' %}">Cars</a>
+        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'web:dashboard' %}">Welcome, {{ user.last_name }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'web:logout' %}">Logout</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'web:login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'web:register' %}">Register</a>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block body %}
+    <section class="hero hero-page gray-bg padding-small">
+        <div class="container">
+            <div class="row d-flex">
+                <div class="col-lg-9 order-2 order-lg-1">
+                    <h1>Compare cars</h1>
+                    <p class="lead text-muted">Specs of 2 cars, side by side</p>
+                </div>
+                <div class="col-lg-3 text-right order-1 order-lg-2">
+                    <ul class="breadcrumb justify-content-lg-end">
+                        <li class="breadcrumb-item"><a href="{% url 'web:index' %}">Home</a></li>
+                        <li class="breadcrumb-item active">compare</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <main>
+        <div class="container">
+            <div class="row">
+                <!-- Select-->
+                <div class="products-grid col-xl-12 col-lg-12" style="text-align: center">
+                    <form id="compareForm" class="form form-control" role="form" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% bootstrap_form form layout='horizontal'%}
+                        {% buttons %}
+                            <button type="submit" class="btn btn-success" id="compareBtn">Compare</button>
+                        {% endbuttons %}
+                    </form>
+                </div>
+            </div>
+                <!-- /Select end-->
+            <div class="row">
+                <!-- Grid -->
+                <div class="products-grid col-xl-12 col-lg-12 sidebar-left">
+                    <div class="row grid" id="tablezone">
+                        <!-- item-->
+                    </div>
+                </div>
+                <!-- / Grid End-->
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'js/bootstrap-select.min.js' %}" type="text/javascript"></script>
+    <script>
+        $("#compareForm").submit(function(e) {
+            var url = "{% url 'web:compare' %}";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#compareForm").serialize(),
+                success: function(data) {
+                    $('#cmpTable').remove();
+                    $('#tablezone').append(data);
+                }
+            });
+            e.preventDefault();
+        });
+    </script>
+{% endblock %}

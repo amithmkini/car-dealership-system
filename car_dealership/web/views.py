@@ -6,7 +6,7 @@ from django.db.models import Q
 
 from datetime import datetime
 
-from .forms import UserForm, TestDriveForm
+from .forms import UserForm, TestDriveForm, CompareForm
 from .models import Car, TestDrive, Order
 
 
@@ -219,3 +219,162 @@ def dashboard(request):
     }
 
     return render(request, 'web/dashboard.html', context)
+
+
+def compare(request):
+
+    form = CompareForm(request.POST or None)
+    if request.method == 'POST':
+        car1 = int(request.POST['car1'])
+        car2 = int(request.POST['car2'])
+
+        car1 = Car.objects.get(pk=car1)
+        car2 = Car.objects.get(pk=car2)
+
+        data = {
+            'car1_id': car1.id,
+            'car1_name': car1.brand + " " + car1.name,
+            'car1_pic': car1.picture.url,
+            'car1_price': car1.price,
+            'car1_seats': car1.seats,
+            'car1_tank_capacity': car1.tank_capacity,
+            'car1_transmission': car1.transmission,
+            'car1_gears': car1.gears,
+            'car1_engine_displacement': car1.engine_displacement,
+            'car1_power': car1.power,
+            'car1_dimensions': car1.dimensions,
+            'car2_id': car2.id,
+            'car2_name': car2.brand + " " + car2.name,
+            'car2_pic': car2.picture.url,
+            'car2_price': car2.price,
+            'car2_seats': car2.seats,
+            'car2_tank_capacity': car2.tank_capacity,
+            'car2_transmission': car2.transmission,
+            'car2_gears': car2.gears,
+            'car2_engine_displacement': car2.engine_displacement,
+            'car2_power': car2.power,
+            'car2_dimensions': car2.dimensions,
+        }
+
+        html = '''
+        <table class="table table-bordered" id="cmpTable">
+            <tbody>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <a href="car/{car1_id}">{car1_name}</a>
+                </td>
+                <td>
+                    <a href="car/{car2_id}">{car2_name}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <img class="img-fluid" src="{car1_pic}" alt="">
+                </td>
+                <td>
+                    <img class="img-fluid" src="{car2_pic}" alt="">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Price (in &#8377;)
+                </td>
+                <td>
+                    {car1_price}
+                </td>
+                <td>
+                    {car2_price}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Seating capacity
+                </td>
+                <td>
+                    {car1_seats}
+                </td>
+                <td>
+                    {car2_seats}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Fuel Tank Capacity (litres)
+                </td>
+                <td>
+                    {car1_tank_capacity}
+                </td>
+                <td>
+                    {car2_tank_capacity}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Transmission type
+                </td>
+                <td>
+                    {car1_transmission}
+                </td>
+                <td>
+                    {car2_transmission}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Gears
+                </td>
+                <td>
+                    {car1_gears}
+                </td>
+                <td>
+                    {car2_gears}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Engine displacement (cc)
+                </td>
+                <td>
+                    {car1_engine_displacement}
+                </td>
+                <td>
+                    {car2_engine_displacement}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Maximum power (PS)
+                </td>
+                <td>
+                    {car1_power}
+                </td>
+                <td>
+                    {car2_power}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Dimensions (mm)
+                </td>
+                <td>
+                    {car1_dimensions}
+                </td>
+                <td>
+                    {car2_dimensions}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        '''.format(**data)
+
+        return HttpResponse(html)
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'web/compare.html', context)

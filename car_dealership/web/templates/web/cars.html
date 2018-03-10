@@ -11,18 +11,22 @@
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
             <form class="form-inline my-2 my-lg-0" id="searchbar">
-                    <input class="form-control ml-sm-2" type="text" name="search" placeholder="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="submit">Search</button>
-                </form>
+                <input class="form-control ml-sm-2" type="text" name="search" placeholder="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="submit">Search</button>
+            </form>
+        </li>
+        &nbsp;&nbsp;
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{% url 'web:compare' %}">Compare</a>
+        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'web:dashboard' %}">Welcome, {{ user.last_name }}</a>
             </li>
-            {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{% url 'web:dashboard' %}">Welcome, {{ user.last_name }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{% url 'web:logout' %}">Logout</a>
-                </li>
-            {% else %}
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'web:logout' %}">Logout</a>
+            </li>
+        {% else %}
             <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="{% url 'web:login' %}">Login</a>
             </li>
