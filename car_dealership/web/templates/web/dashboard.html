@@ -45,7 +45,7 @@
                             <a href="{% url 'web:details' test.car.id %}"><img class="card-img-top" src="{{ test.car.picture.url }}" alt=""></a>
                             <div class="card-body">
                                 <h4 class="card-title">
-                                    <a href="#">{{ test.car.brand }} {{ test.car.name }}</a>
+                                    <a href="{% url 'web:details' test.car.id %}">{{ test.car.brand }} {{ test.car.name }}</a>
                                 </h4>
                                 <p class="card-text">
                                     Date of test drive: {{ test.time }}<br>
@@ -74,7 +74,7 @@
                             <a href="{% url 'web:details' order.car.id %}"><img class="card-img-top" src="{{ order.car.picture.url }}" alt=""></a>
                             <div class="card-body">
                                 <h4 class="card-title">
-                                    <a href="#">{{ order.car.brand }} {{ order.car.name }}</a>
+                                    <a href="{% url 'web:details' test.car.id %}">{{ order.car.brand }} {{ order.car.name }}</a>
                                 </h4>
                                 <p class="card-text">
                                     Amount: &#8377; {{ order.amount }}<br>
