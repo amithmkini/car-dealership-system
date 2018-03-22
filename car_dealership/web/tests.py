@@ -27,7 +27,7 @@ class RegistrationTestCase(LiveServerTestCase):
     def test_register(self):
         selenium = self.selenium
         selenium.get(self.url)
-        print("Testing the registration system")
+        print("\nTesting the registration system")
 
         # Now open the link for registration
         first_name = selenium.find_element_by_id('id_first_name')
@@ -58,7 +58,7 @@ class RegistrationTestCase(LiveServerTestCase):
         # Logout and repeat the test
         selenium.get(self.live_server_url + reverse('web:logout'))
         selenium.get(self.url)
-        print("Testing with repeated user name")
+        print("\nTesting with repeated user name")
 
         first_name = selenium.find_element_by_id('id_first_name')
         last_name = selenium.find_element_by_id('id_last_name')
@@ -91,8 +91,8 @@ class LoginTestCase(LiveServerTestCase):
         self.selenium.quit()
         super(LoginTestCase, self).tearDown()
 
-    def test_login(self):
-        print("Running login test")
+    def test_login(self): 
+        print("\nRunning login test")
         selenium = self.selenium
 
         selenium.get(self.url)
@@ -108,7 +108,7 @@ class LoginTestCase(LiveServerTestCase):
         self.assertInHTML(self.user.last_name, selenium.page_source)
 
     def test_invalid_login(self):
-        print("Testing invalid logins")
+        print("\nTesting invalid logins")
         selenium = self.selenium
 
         selenium.get(self.url)
@@ -162,7 +162,7 @@ class AdminCarTest(TestCase):
         super(AdminCarTest, self).tearDown()
 
     def test_car_add(self):
-        print("Adding cars")
+        print("\nAdd car test...")
         user = self.user
         car = Car(
             picture=File(open(settings.BASE_DIR + '/web' + settings.STATIC_URL + 'images/car.jpg', 'r')),
@@ -234,8 +234,8 @@ class TestDriveTest(StaticLiveServerTestCase):
         super(TestDriveTest, self).tearDown()
 
     def test_testdrive(self):
+        print("\nTest drive button test...")
         selenium = self.selenium
-
         selenium.get(self.url)
 
         testdrive_btn = selenium.find_element_by_id("testdriveBtn")
@@ -300,7 +300,8 @@ class OrderTest(StaticLiveServerTestCase):
         self.selenium.quit()
         super(OrderTest, self).tearDown()
 
-    def test_testdrive(self):
+    def test_order(self):
+        print("\nOrder button test...")
         selenium = self.selenium
 
         selenium.get(self.url)
@@ -310,9 +311,10 @@ class OrderTest(StaticLiveServerTestCase):
         submit = selenium.find_element_by_id("clickBtn")
 
         order_btn.click()
-        address.send_keys("Address")
+        address.send_keys("Address...")
         submit.send_keys(Keys.ENTER)
-        selenium.switch_to.alert.dismiss()
+        time.sleep(1)
+        alert = selenium.switch_to.alert
         time.sleep(1)
         td = Order.objects.get(user=self.user)
         self.assertEqual(td.__str__(), "Test User - Name")
