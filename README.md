@@ -2,6 +2,8 @@
 
 This project is a part of IT350 - Software Engineering course. All materials available here are open source and hence can be freely used without any permission.
 
+## Deprecated
+This repository will no longer receive updates from me. If you are interested in development of this application, fork the repository to your account. 
 
 ### What is this repository for? ###
 * Car dealership system using Software Engineering principles.

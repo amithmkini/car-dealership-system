@@ -104,7 +104,7 @@ class LoginTestCase(LiveServerTestCase):
         password.send_keys('testuser')
         submit.click()
 
-        assert "Dashboard" in selenium.title
+        assert "Cars" in selenium.title
         self.assertInHTML(self.user.last_name, selenium.page_source)
 
     def test_invalid_login(self):
